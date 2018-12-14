@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.hk.web">
+  	
+  	<insert id="sendMessage" parameterType="dto">
+  		insert into notice values(message_seq.nextval,#{n_receiver},#{n_sender},sysdate,#{n_content},#{ns_state_code})
+  	</insert>
+  	
+  	<delete id="deleteMessage" parameterType="int">
+  		delete notice where n_seq =#{n_seq}
+  	</delete>
+  	
+  	<select id="getMessageList" parameterType="String" resultType="dto">
+  		select * from notice where n_receiver = #{n_receiver} order by n_time
+  	</select>
+  	
+  	<select id="getMessage" parameterType="int" resultType="dto">
+  		select * from notice where n_seq = #{n_seq}
+  	</select>
+  	
+  	<select id="getMsgNum" parameterType="String" resultType="dto">
+  		select n_seq from notice where n_receiver = #{n_receiver}
+  	</select>
+  	
+  </mapper>
